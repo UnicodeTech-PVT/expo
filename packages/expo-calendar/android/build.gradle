@@ -1,0 +1,24 @@
+apply plugin: 'com.android.library'
+
+group = 'host.exp.exponent'
+version = '14.0.2'
+
+def expoModulesCorePlugin = new File(project(":expo-modules-core").projectDir.absolutePath, "ExpoModulesCorePlugin.gradle")
+apply from: expoModulesCorePlugin
+applyKotlinExpoModulesCorePlugin()
+useCoreDependencies()
+useDefaultAndroidSdkVersions()
+useExpoPublishing()
+
+android {
+  namespace "expo.modules.calendar"
+  defaultConfig {
+    versionCode 17
+    versionName '14.0.2'
+  }
+}
+
+dependencies {
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1")
+}

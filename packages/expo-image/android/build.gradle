@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-kapt'
+
+def expoModulesCorePlugin = new File(project(":expo-modules-core").projectDir.absolutePath, "ExpoModulesCorePlugin.gradle")
+apply from: expoModulesCorePlugin
+applyKotlinExpoModulesCorePlugin()
+useCoreDependencies()
+useDefaultAndroidSdkVersions()
+
+buildscript {
+  // Simple helper that allows the root project to override versions declared by this library.
+  ext.safeExtGet = { prop, fallback ->
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+  }
+}
+
+android {
+  namespace "expo.modules.image"
+  defaultConfig {
+    versionCode 1
+    versionName "2.0.0-preview.0"
+    consumerProguardFiles("proguard-rules.pro")
+
+    buildConfigField("boolean", "ALLOW_GLIDE_LOGS", project.properties.get("EXPO_ALLOW_GLIDE_LOGS", "false"))
+  }
+
+  sourceSets {
+    main {
+      java {
+        if (safeExtGet("excludeAppGlideModule", false)) {
+          exclude("**/ExpoImageAppGlideModule.kt")
+        }
+      }
+    }
+  }
+}
+
+dependencies {
+  def GLIDE_VERSION = "4.16.0"
+
+  implementation 'com.facebook.react:react-android'
+
+  api "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
+  kapt "com.github.bumptech.glide:compiler:${GLIDE_VERSION}"
+  api 'com.caverock:androidsvg-aar:1.4'
+
+  implementation "com.github.penfeizhou.android.animation:glide-plugin:3.0.1"
+  implementation "com.github.bumptech.glide:avif-integration:${GLIDE_VERSION}"
+
+  api 'com.github.bumptech.glide:okhttp3-integration:4.11.0'
+  api "com.squareup.okhttp3:okhttp:${safeExtGet("okHttpVersion", '4.9.2')}"
+
+  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1'
+  implementation "jp.wasabeef:glide-transformations:4.3.0"
+}

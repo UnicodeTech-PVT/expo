@@ -1,0 +1,29 @@
+apply plugin: 'com.android.library'
+
+group = 'host.exp.exponent'
+version = '13.0.0'
+
+def expoModulesCorePlugin = new File(project(":expo-modules-core").projectDir.absolutePath, "ExpoModulesCorePlugin.gradle")
+apply from: expoModulesCorePlugin
+applyKotlinExpoModulesCorePlugin()
+useCoreDependencies()
+useDefaultAndroidSdkVersions()
+useExpoPublishing()
+
+android {
+  namespace "expo.modules.sms"
+  defaultConfig {
+    versionCode 28
+    versionName "13.0.0"
+  }
+}
+
+dependencies {
+  implementation 'androidx.annotation:annotation:1.1.0'
+
+  if (project.findProject(':expo-modules-test-core')) {
+    testImplementation project(':expo-modules-test-core')
+  }
+  testImplementation "org.robolectric:robolectric:4.10"
+  testImplementation 'junit:junit:4.13.2'
+}

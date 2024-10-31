@@ -1,0 +1,24 @@
+apply plugin: 'com.android.library'
+
+group = 'host.exp.exponent'
+version = '7.0.1'
+
+def expoModulesCorePlugin = new File(project(":expo-modules-core").projectDir.absolutePath, "ExpoModulesCorePlugin.gradle")
+apply from: expoModulesCorePlugin
+applyKotlinExpoModulesCorePlugin()
+useCoreDependencies()
+useDefaultAndroidSdkVersions()
+useExpoPublishing()
+
+android {
+  namespace "expo.modules.device"
+  defaultConfig {
+    versionCode 12
+    versionName '7.0.1'
+  }
+}
+
+dependencies {
+  api 'com.facebook.device.yearclass:yearclass:2.1.0'
+  api "androidx.legacy:legacy-support-v4:1.0.0"
+}

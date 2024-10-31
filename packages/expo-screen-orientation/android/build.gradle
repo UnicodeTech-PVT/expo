@@ -1,0 +1,19 @@
+apply plugin: 'com.android.library'
+
+group = 'host.exp.exponent'
+version = '8.0.0'
+
+def expoModulesCorePlugin = new File(project(":expo-modules-core").projectDir.absolutePath, "ExpoModulesCorePlugin.gradle")
+apply from: expoModulesCorePlugin
+applyKotlinExpoModulesCorePlugin()
+useCoreDependencies()
+useDefaultAndroidSdkVersions()
+useExpoPublishing()
+
+android {
+  namespace "expo.modules.screenorientation"
+  defaultConfig {
+    versionCode 7
+    versionName '8.0.0'
+  }
+}

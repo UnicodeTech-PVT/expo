@@ -1,0 +1,19 @@
+apply plugin: 'com.android.library'
+
+group = 'host.exp.exponent'
+version = '7.0.1'
+
+def expoModulesCorePlugin = new File(project(":expo-modules-core").projectDir.absolutePath, "ExpoModulesCorePlugin.gradle")
+apply from: expoModulesCorePlugin
+applyKotlinExpoModulesCorePlugin()
+useCoreDependencies()
+useDefaultAndroidSdkVersions()
+useExpoPublishing()
+
+android {
+  namespace "expo.modules.cellular"
+  defaultConfig {
+    versionCode 11
+    versionName '7.0.1'
+  }
+}

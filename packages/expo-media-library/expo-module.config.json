@@ -1,0 +1,10 @@
+{
+  "name": "expo-media-library",
+  "platforms": ["ios", "android"],
+  "ios": {
+    "modules": ["MediaLibraryModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.medialibrary.MediaLibraryModule"]
+  }
+}

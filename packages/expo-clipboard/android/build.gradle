@@ -1,0 +1,29 @@
+apply plugin: 'com.android.library'
+
+group = 'host.exp.exponent'
+version = '7.0.0'
+
+def expoModulesCorePlugin = new File(project(":expo-modules-core").projectDir.absolutePath, "ExpoModulesCorePlugin.gradle")
+apply from: expoModulesCorePlugin
+applyKotlinExpoModulesCorePlugin()
+useCoreDependencies()
+useDefaultAndroidSdkVersions()
+useExpoPublishing()
+
+android {
+  namespace "expo.modules.clipboard"
+  defaultConfig {
+    versionCode 3
+    versionName '7.0.0'
+  }
+}
+
+dependencies {
+  implementation "androidx.core:core-ktx:1.6.0"
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
+
+  if (project.findProject(':expo-modules-test-core')) {
+    testImplementation project(':expo-modules-test-core')
+  }
+}
